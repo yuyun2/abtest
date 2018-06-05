@@ -98,7 +98,7 @@ sample_size_proportion <- function(p1, delta, alpha, power){
       data = data_frame(n,power)
       ggplot(data, aes(x=power, y=n)) + geom_line() +
         ggtitle(paste('Sample Size vs Power with alpha of',
-                      alpha, 'and delta of', p2 - p1)) +
+                      alpha, 'and delta of', delta)) +
         xlab("Power") + ylab("Sample Size (n)")
       
       
@@ -112,24 +112,7 @@ sample_size_proportion <- function(p1, delta, alpha, power){
 }
 
 sample_size_proportion(p1 = 0.1,delta =  .05, alpha = .05, power = .8)
-sample_size_proportion(p1 = c(.05, .1),delta =  .05, alpha = .05, power = .8)
+sample_size_proportion(p1 = c(.1, .2),delta =  .05, alpha = .05, power = .8)
 sample_size_proportion(p1 = .1,delta =  c(.05,.1), alpha = .05, power = .8)
 sample_size_proportion(p1 = .1,delta =  .05, alpha = c(.05, .1), power = .8)
 sample_size_proportion(p1 = .3, delta =  .2, alpha = .01, power = c(.8,.9))
-
-
-power = seq(.1, .9, .01)
-p1 = .1
-p2 = .02
-for(i in 1:length(power)){
-  z_alpha_beta = (qnorm(alpha/2, lower.tail = F) + qnorm(1 - power[i], lower.tail = F))^2
-  n[i] = round(z_alpha_beta * (p1*(1-p1) + p2*(1-p2)) / (p1-p2)^2)
-  print(paste("For power of", power[i], "the sample size is", n[i]))
-}
-
-data = data_frame(n,power)
-ggplot(data, aes(x=power, y=n)) + geom_smooth(se = F) +
-  ggtitle(paste('Sample Size vs Power with alpha of',
-                alpha, 'and delta of', p2 - p1)) +
-  xlab("Power") + ylab("Sample Size (n)")
-
