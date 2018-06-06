@@ -3,7 +3,7 @@ library(tidyverse)
 sample_size_mean <- function(sigma, alpha, power){
   
   if(length(c(sigma, alpha, power))==3){
-    n = round((2*(qnorm(alpha/2) - qnorm(power))^2)/(sigma^2))
+    n = ceiling((2*(qnorm(alpha/2) - qnorm(power))^2)/(sigma^2))
     print(paste("The sample size for a two-sample t-test of mean is", n))
   }
   
@@ -27,7 +27,7 @@ sample_size_mean <- function(sigma, alpha, power){
       
       for(i in 1:length(sigma)){
         
-        n[i] = round((2*(qnorm(alpha/2) - qnorm(power))^2)/(sigma[i]^2))
+        n[i] = ceiling((2*(qnorm(alpha/2) - qnorm(power))^2)/(sigma[i]^2))
         
         
         
@@ -49,7 +49,7 @@ sample_size_mean <- function(sigma, alpha, power){
     else if(parameters[multiple]=="alpha"){
       alpha = seq(alpha[1], alpha[2], .01)
       for(i in 1:length(alpha)){
-        n[i] = round((2*(qnorm(alpha[i]/2) - qnorm(power))^2)/(sigma^2))
+        n[i] = ceiling((2*(qnorm(alpha[i]/2) - qnorm(power))^2)/(sigma^2))
         
       }
       
@@ -67,7 +67,7 @@ sample_size_mean <- function(sigma, alpha, power){
     else if(parameters[multiple]=="power"){
       power = seq(power[1], power[2], .01)
       for(i in 1:length(power)){
-        n[i] = round((2*(qnorm(alpha/2) - qnorm(power[i]))^2)/(sigma^2))
+        n[i] = ceiling((2*(qnorm(alpha/2) - qnorm(power[i]))^2)/(sigma^2))
         
       }
       
